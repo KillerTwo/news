@@ -1,0 +1,14 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /news
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/news_db?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+    password: 123456root
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
