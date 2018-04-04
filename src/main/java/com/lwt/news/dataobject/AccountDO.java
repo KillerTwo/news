@@ -1,5 +1,7 @@
 package com.lwt.news.dataobject;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
@@ -10,6 +12,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Table(name = "account_table")
 public class AccountDO implements Serializable{
     @Id

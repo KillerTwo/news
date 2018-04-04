@@ -6,8 +6,9 @@ import com.lwt.news.repository.AccountRepository;
 import com.lwt.news.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.UUID;
 @Service
@@ -23,9 +24,8 @@ public class AccountServiceImpl implements AccountService {
     @Override
     @Transactional
     public AccountDO saveAccount(AccountDO accountDO) {
-        AccountDO oldAccountDao = accountRepository
-                .findAccountDOByAccountName(accountDO.getAccountName());
-        if(oldAccountDao != null)
+
+        if(accountRepository.existsByAccountName(accountDO.getAccountName()) == true)
             return null;
         accountDO.setRegisterTime(new Date());
         accountDO.setRoleId(RoleEnum.REGISTER_USER.getCode());//默认为一般注册用户
@@ -41,19 +41,23 @@ public class AccountServiceImpl implements AccountService {
      * @return
      */
     @Override
-    public AccountDO modifyPassword(AccountDO accountDO) {
-        return null;
+    @Transactional
+    public boolean modifyPassword(AccountDO accountDO) {
+
+        return accountRepository.updataPwd(accountDO) > 0 ? true : false;
     }
 
     /**
      * 根据账号名修改角色设置（设置角色）
      *
-     * @param accountDOa
+     * @param accountName
      * @return
      */
     @Override
-    public AccountDO modifyRoleId(AccountDO accountDOa) {
-        return null;
+    @Transactional
+    public boolean modifyRoleId(String accountName, String roleName) {
+        String roleId = RoleEnum.getName(roleName);
+        return accountRepository.updataRole(accountName,roleId) > 0 ? true : false;
     }
 
     /**
@@ -66,5 +70,15 @@ public class AccountServiceImpl implements AccountService {
     public AccountDO findByNameAndPwd(String accountName, String accountPwd) {
         return accountRepository.findAccountDOByAccountNameAndAccountPwd(accountName,
                 accountPwd);
+    }
+
+    /**
+     * 账号是否存在
+     * @param accountName
+     * @return
+     */
+    @Override
+    public boolean exitAccount(String accountName) {
+        return accountRepository.existsByAccountName(accountName);
     }
 }

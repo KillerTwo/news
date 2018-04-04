@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class UserController {
@@ -55,7 +56,7 @@ public class UserController {
      */
     @PutMapping(value = "/user")
     public UserDTO updata(@RequestBody UserDTO userDTO){
-        String accountName = "";      //从session中取账号名
+        String accountName = "绝代双娇";      //从session中取账号名
         return userService.modifyUserInfo(accountName, userDTO);
     }
 
@@ -65,8 +66,30 @@ public class UserController {
      */
     @DeleteMapping(value = "/user/{accountName}")
     public void deleteUser(@PathVariable("accountName") String accountName){
-
+        userService.deleteUserInfo(accountName);
     }
 
+    /**
+     * 分页查询
+     * @param pageNumber
+     * @param pageSize
+     * @return
+     */
+    @GetMapping("/user/page")
+    public Map<String, Object> getListByPage(@RequestParam int pageNumber,
+                             @RequestParam int pageSize){
+        return userService.getListByPagination(pageNumber, pageSize);
+    }
+
+    /**
+     * 按条件分页查询
+     * @return
+     */
+    @GetMapping(value = "/user/condit")
+    public Map<String,Object> getListByPageAndCondition(@RequestParam int pageNumber,
+                                                        @RequestParam int pageSize,
+                                                        @RequestParam String roleName){
+        return userService.getListByPageAndCondition(pageNumber, pageSize, roleName);
+    }
 
 }

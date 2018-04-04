@@ -11,6 +11,14 @@ public enum RoleEnum {
         this.info = info;
     }
 
+    public static String getName(String index) {
+        for (RoleEnum c : RoleEnum.values()) {
+            if (c.getInfo() == index) {
+                return c.code;
+            }
+        }
+        return null;
+    }
     public String getCode() {
         return code;
     }

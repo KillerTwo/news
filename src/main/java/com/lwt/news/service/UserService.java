@@ -3,6 +3,7 @@ package com.lwt.news.service;
 import com.lwt.news.dto.UserDTO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserService {
     /**
@@ -44,4 +45,13 @@ public interface UserService {
      */
     void deleteUserInfo(String accountName);
 
+    Map<String,Object> getListByPagination(int page, int size);
+
+    /**
+     * 按条件分页查询
+     * @param page
+     * @param size
+     * @return
+     */
+    public Map<String,Object> getListByPageAndCondition(int page, int size,String roleName);
 }

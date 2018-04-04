@@ -2,6 +2,8 @@ package com.lwt.news.dataobject;
 
 
 import com.lwt.news.dto.UserDTO;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
 
@@ -13,6 +15,8 @@ import java.util.UUID;
  * 用户表实体
  */
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Table(name="user_table")
 public class UserDO implements Serializable{
 
