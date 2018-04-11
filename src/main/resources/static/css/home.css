@@ -1,0 +1,108 @@
+body{
+    padding: 0px;
+    margin: 0px;
+}
+.el-container{
+    position: relative;
+}
+.el-header {
+    background-color: #409EFF;
+    color: #333;
+    /* text-align: center; */
+    line-height: 60px;
+}
+/*标题样式*/
+.el-header .title{
+    display: inline-block;
+    font-size: 42px;
+    color: #FFF;
+    font-family: "Hiragino Sans GB";
+    line-height: 60px;
+   
+}
+/*图标样式*/
+.el-header .logo img{
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    border-radius: 60%;
+}
+.el-header .nav{
+    margin: auto 20%;
+    height: 60px;
+    line-height: 60px;
+}
+.el-header .nav ul{
+    /*display: inline-block;*/
+    height: 60px;
+    padding: 0px;
+    margin: 0px;
+
+}
+.el-header .nav ul li{
+    display: inline-block;
+    list-style-type: none;
+    margin-right: 0 20px 0 0;
+    font-size: 20px;
+    color: #FFF;
+    height: 60px;
+    
+    padding: 0px;
+    
+}
+.el-header .nav ul li a{
+    text-decoration: none;
+    color: #FFF;
+    margin-right: 15px;
+}
+.el-header a{
+    text-decoration: none;
+}
+.el-header a span{
+    color: #FFF;
+}
+.el-header .login{
+    font-size: 20px;
+    color: #FFF;
+    font-family: "Hiragino Sans GB";
+    line-height: 60px;
+    float: right;
+    cursor: pointer;
+}
+.clear{
+    clear: both;
+}
+.el-footer{
+    
+    background-color: #909399;
+    color: #333;
+    text-align: center;
+    line-height: 60px;
+    
+}
+.el-aside {
+    background-color: #D3DCE6;
+    color: #333;
+    text-align: center;
+    line-height: 200px;
+}
+
+.el-main {
+    background-color: #F2F6FC;
+    color: #333;
+    text-align: center;
+    line-height: 160px;
+}
+
+body > .el-container {
+    margin-bottom: 40px;
+}
+
+.el-container:nth-child(5) .el-aside,
+.el-container:nth-child(6) .el-aside {
+    line-height: 260px;
+}
+
+.el-container:nth-child(7) .el-aside {
+    line-height: 320px;
+}

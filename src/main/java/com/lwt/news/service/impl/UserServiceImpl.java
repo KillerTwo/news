@@ -6,6 +6,7 @@ import com.lwt.news.dto.UserDTO;
 import com.lwt.news.enums.RoleEnum;
 import com.lwt.news.repository.AccountRepository;
 import com.lwt.news.repository.UserRepository;
+import com.lwt.news.service.AccountService;
 import com.lwt.news.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -49,17 +50,6 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 根据用户身份证号查询用户信息
-     *
-     * @param idCard
-     * @return
-     */
-    @Override
-    public UserDTO findByIdCard(String idCard) {
-        return null;
-    }
-
-    /**
      * 根据账号名查找用户信息
      *
      * @param accountName
@@ -82,7 +72,7 @@ public class UserServiceImpl implements UserService {
      *
      * @param user
      */
-    @Override
+    /*@Override
     public UserDTO saveUser(String accountName,UserDTO user) {
         String accountId = accountRepository
                 .findAccountDOByAccountName(accountName).getAccountId();
@@ -92,7 +82,7 @@ public class UserServiceImpl implements UserService {
         //System.err.println(userDO);
         userDO = userRepository.save(userDO);
         return new UserDTO(userDO);
-    }
+    }*/
 
     /**
      * 根据账号名更新一条用户信息
@@ -120,28 +110,42 @@ public class UserServiceImpl implements UserService {
      * @param accountName
      */
     @Override
-    public void deleteUserInfo(String accountName) {
+    @Transactional
+
+    public boolean deleteUserInfo(String accountName) {
         String accountId = accountRepository
                 .findAccountDOByAccountName(accountName).getAccountId();
-        userRepository.deleteByAccountId(accountId);
+        int effected = userRepository.deleteByAccountId(accountId);
+        if(effected > 0){
+            accountRepository.deleteById(accountId);
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**
      * 分页查询
+     * @Param page当前是第几页（从0开始，0，1，2，...）
+     * @Param size每一页显示多少条
      * @return
      */
     @Override
+
     public Map<String,Object> getListByPagination(int page, int size) {
         Map<String,Object> pageMap = new HashMap<>();
         List<UserDTO> userDTOList = new ArrayList<>();
         //1.创建pageable对象
         Pageable pageable = PageRequest.of(page,size);
+
         //2.调用分页查询方法
         Page<UserDO> pages = userRepository.findAll(pageable);
         List<UserDO> userDOList = pages.getContent();
 
         userDOList.forEach((userDO)->{
+            AccountDO accountDO = accountRepository.getOne(userDO.getAccountId());
             UserDTO userDTO = new UserDTO(userDO);
+            userDTO.setAccountName(accountDO.getAccountName());
             userDTOList.add(userDTO);
         });
         pageMap.put("rows",userDTOList);

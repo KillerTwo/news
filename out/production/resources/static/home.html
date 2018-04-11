@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <!-- 引入样式 -->
+    <!--<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">-->
+    <link rel="stylesheet" href="css/element-ui.css" />
+    <link rel="stylesheet" href="css/home.css">
+</head>
+
+<body>
+    <div id="app">
+        <el-row :gutter="10">
+            <el-col :xs="22" :sm="22" :md="22" :lg="20" :xl="20" :offset="2">
+                <div class="grid-content bg-purple">
+                    <el-container>
+                        <el-header>
+                            <div class="logo" style="display: inline-block;">
+                                <!-- <img src="img/logo.png" > -->
+                            </div>
+                            <div class="title" style="display: inline-block;">
+                                <span>CBC新闻</span>
+                            </div>
+                            <!-- <div class="clear"></div> -->
+                            <div class="nav" style="display: inline-block;">
+                                <ul>
+                                    <li><a href="#">首页</a></li>
+                                    <li><a href="#">连接</a></li>
+                                    <li><a href="#">版权</a></li>
+                                    <li><a href="#">标识</a></li>
+                                </ul>
+                            </div>
+                            <div class="clear" style="display: inline-block;"></div>
+                            <div class="login" style="display: inline-block;">
+                                <router-link to="/login">
+                                    <span>登陆</span>
+                                </router-link> |
+                                <router-link to="/register">
+                                    <span>注册</span>
+                                </router-link>
+                                
+                                
+                            </div>
+                        </el-header>
+                        <el-main>
+                            <!-- <register></register> -->
+                            <router-view></router-view>
+                        </el-main>
+                        <el-footer>
+                            <span align="center" bgcolor="#E1F2F9">Copyright &copy 2018 cbcnews.com All Right Reserved<span>
+                        </el-footer>
+                    </el-container>
+                </div>
+            </el-col>
+        </el-row>
+        
+    <!-- <h1>
+       Hi {{name}} welcome news CBC
+    </h1> -->
+
+    
+</div>
+    <!-- 注册组件模板 -->
+    <template id="register-template">
+        <div>
+            <div v-if="!isRegist">
+                <el-form :model="registerForm" status-icon :rules="rules" ref="registerForm" label-width="100px" class="demo-registerForm">
+              <el-form-item label="账号名称" prop="accountName" >
+                <el-input type="text" v-model="registerForm.accountName" @blur="exits">  
+                </el-input>
+                <!-- <span v-if="isExits" style="text-align: left;margin: 0px;padding: 0px;">用户名已存在</span> -->
+              </el-form-item>
+              <el-form-item label="账号邮箱" prop="email">
+               <el-input type="email" v-model="registerForm.email"></el-input>
+              </el-form-item>
+              <el-form-item label="账号密码" prop="accountPwd">
+                <el-input type="password" v-model="registerForm.accountPwd"></el-input>
+              </el-form-item>
+              <el-form-item label="确认密码" prop="checkPass">
+               <el-input type="password" v-model="registerForm.checkPass"></el-input>
+              </el-form-item>
+              
+              <el-form-item>
+                <el-button type="primary" @click="submitForm('registerForm')">注册</el-button>
+                <el-button @click="resetForm('registerForm')">重置</el-button>
+              </el-form-item>
+            </el-form>
+            </div>
+            <div v-else>
+                 <span>注册成功，请在24小时内到注册邮箱完成验证以激活账号</span>
+                 <router-link to="/home">
+                    <span>返回首页</span>
+                  </router-link>
+            </div>
+            
+        </div>
+    </template>
+    <!-- 登陆组件页面模板 -->
+    <template id="login-template">
+        <div>
+            <div v-if="!isLogin">
+                <el-form :model="loginForm" status-icon :rules="rules" ref="loginForm" label-width="100px" class="demo-loginForm">
+                  <el-form-item label="账号名称" prop="accountName">
+                    <el-input type="text" v-model="loginForm.accountName"></el-input>
+                  </el-form-item>
+                  
+                  <el-form-item label="账号密码" prop="accountPwd">
+                    <el-input type="password" v-model="loginForm.accountPwd"></el-input>
+                  </el-form-item>
+                  
+                  
+                  <el-form-item>
+                    <el-button type="primary" @click="submitForm('loginForm')">登陆</el-button>
+                    <el-button @click="resetForm('loginForm')">重置</el-button>
+                  </el-form-item>
+                </el-form>
+            </div>
+            <div v-else>
+                <!-- 登陆成功跳转到首页，在这里放置首页组件即可 -->
+                <a href="">登陆成功跳转到首页</a>
+            </div>
+           
+        </div>
+    </template>
+
+</body>
+<script src="js/vue.min.js" ></script>
+<script src="js/axios.min.js" ></script>
+<script src="js/vue-router.js"></script>
+<script src="js/element-ui.js"></script>
+<script src="js/register.js"></script>
+<script src="js/login.js"></script>
+<script src="js/home.js" ></script>
+
+<!-- 引入组件库 -->
+<!--<script src="https://unpkg.com/element-ui/lib/index.js"></script>-->
+
+</html>

@@ -25,4 +25,18 @@ public interface AccountRepository extends JpaRepository<AccountDO,String> {
     int updataRole(@Param("accountName") String accountName,
                    @Param("roleId") String roleId);
     List<AccountDO> findAccountDOByRoleId(String roleId);
+
+    /**
+     * 根据邮箱修改注册时产生验证码
+     * @param email
+     * @param code
+     * @return
+     */
+    @Query("UPDATE AccountDO a SET code = '',hasActivate = 1 WHERE email = :email AND code = :code")
+    @Modifying
+    int updateCodeByEamil(@Param("email") String email, @Param("code") String code);
+
+    @Query("UPDATE AccountDO a SET roleId =:roleId  WHERE email = :email")
+    @Modifying
+    int updateRoleByEamil(@Param("email") String email, @Param("roleId") String roleId);
 }

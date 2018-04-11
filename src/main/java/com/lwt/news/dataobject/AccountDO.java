@@ -24,6 +24,12 @@ public class AccountDO implements Serializable{
     private String accountPwd;
     //注册时间
     private Date registerTime;
+    //激活码
+    private String code;
+    //是否被激活
+    private int hasActivate;
+    //注册邮箱
+    private String email;
     //所对应的角色id
     private String roleId;
 
@@ -71,6 +77,30 @@ public class AccountDO implements Serializable{
         this.roleId = roleId;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public int getHasActivate() {
+        return hasActivate;
+    }
+
+    public void setHasActivate(int hasActivate) {
+        this.hasActivate = hasActivate;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public String toString() {
         return "AccountDO{" +
@@ -78,6 +108,9 @@ public class AccountDO implements Serializable{
                 ", accountName='" + accountName + '\'' +
                 ", accountPwd='" + accountPwd + '\'' +
                 ", registerTime=" + registerTime +
+                ", code='" + code + '\'' +
+                ", hasActivate=" + hasActivate +
+                ", email='" + email + '\'' +
                 ", roleId='" + roleId + '\'' +
                 '}';
     }

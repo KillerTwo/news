@@ -43,6 +43,13 @@ public interface UserRepository extends JpaRepository<UserDO,String>,
     @Modifying
     int updateUser(@Param("userDO") UserDO userDO);
 
-    void deleteByAccountId(String accountId);
+    int deleteByAccountId(String accountId);
+
+    /**
+     * 根据邮箱返回用户信息
+     * @param email
+     * @return
+     */
+    UserDO findByEmail(String email);
 
 }

@@ -20,6 +20,8 @@ public class UserDTO {
     private String userGraduaction;
     //学历
     private String userEduation;
+    //该用户对应的账号名
+    private String accountName;
     public UserDTO(){}
 
     public UserDTO(UserDO user){
@@ -96,6 +98,14 @@ public class UserDTO {
 
     public void setUserEduation(String userEduation) {
         this.userEduation = userEduation;
+    }
+
+    public String getAccountName() {
+        return accountName;
+    }
+
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
     }
 
     @Override

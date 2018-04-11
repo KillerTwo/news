@@ -1,8 +1,10 @@
 package com.lwt.news.service.impl;
 
 import com.lwt.news.dataobject.AccountDO;
+import com.lwt.news.dataobject.UserDO;
 import com.lwt.news.enums.RoleEnum;
 import com.lwt.news.repository.AccountRepository;
+import com.lwt.news.repository.UserRepository;
 import com.lwt.news.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,8 @@ import java.util.UUID;
 public class AccountServiceImpl implements AccountService {
     @Autowired
     private AccountRepository accountRepository;
+    @Autowired
+    private UserRepository userRepository;
     /**
      * 新增一条账号信息
      *
@@ -25,13 +29,30 @@ public class AccountServiceImpl implements AccountService {
     @Transactional
     public AccountDO saveAccount(AccountDO accountDO) {
 
+        //如果用户名已经存在则返回null
         if(accountRepository.existsByAccountName(accountDO.getAccountName()) == true)
             return null;
         accountDO.setRegisterTime(new Date());
         accountDO.setRoleId(RoleEnum.REGISTER_USER.getCode());//默认为一般注册用户
-        accountDO.setAccountId(UUID.randomUUID()
-                .toString().replace("-",""));
-        return accountRepository.save(accountDO);
+        String accountId = UUID.randomUUID()
+                .toString().replace("-","");
+        String code = accountId +
+                UUID.randomUUID()
+                .toString().replace("-","");
+        accountDO.setCode(code);
+        accountDO.setAccountId(accountId);
+        //如果创建账号成功则要在添加账号信息的同时添加一条对应的用户信息
+        String userId = UUID.randomUUID()
+                .toString().replace("-","");
+        UserDO userDO = new UserDO();
+        userDO.setAccountId(accountId);
+        userDO.setEmail(accountDO.getEmail());
+        AccountDO accountDOResult = accountRepository.save(accountDO);
+        if(accountDOResult != null){
+            userRepository.save(userDO);
+        }
+
+        return accountDOResult;
     }
 
     /**
@@ -80,5 +101,19 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public boolean exitAccount(String accountName) {
         return accountRepository.existsByAccountName(accountName);
+    }
+
+    /**
+     * 激活账号
+     *
+     * @param email
+     * @param code
+     * @return
+     */
+    @Override
+    @Transactional
+    public boolean validata(String email, String code) {
+
+        return accountRepository.updateCodeByEamil(email, code) > 0 ? true : false;
     }
 }

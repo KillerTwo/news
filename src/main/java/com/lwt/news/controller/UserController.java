@@ -15,6 +15,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+
     /**
      * 查询所有用户
      * @return
@@ -41,14 +42,14 @@ public class UserController {
      * @param userDTO
      * @return
      */
-    @PostMapping(value="/user")
+   /* @PostMapping(value="/user")
     public UserDTO saveUser(@RequestBody UserDTO userDTO){
         //@PathVariable String accountName,
         String accountName = "";     //从Session中拿去账号名
         System.out.println(userDTO);
         System.out.println(accountName);
         return userService.saveUser(accountName,userDTO);
-    }
+    }*/
 
     /**
      * 修改一条用户数据
@@ -65,8 +66,8 @@ public class UserController {
      * @param accountName
      */
     @DeleteMapping(value = "/user/{accountName}")
-    public void deleteUser(@PathVariable("accountName") String accountName){
-        userService.deleteUserInfo(accountName);
+    public boolean deleteUser(@PathVariable("accountName") String accountName){
+        return userService.deleteUserInfo(accountName);
     }
 
     /**
@@ -76,8 +77,9 @@ public class UserController {
      * @return
      */
     @GetMapping("/user/page")
-    public Map<String, Object> getListByPage(@RequestParam int pageNumber,
+    public Map<String, Object> getListByPage(@RequestParam("currentPage") int pageNumber,
                              @RequestParam int pageSize){
+        pageNumber = pageNumber-1;
         return userService.getListByPagination(pageNumber, pageSize);
     }
 

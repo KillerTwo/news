@@ -17,7 +17,7 @@ public interface UserService {
      * @param idCard
      * @return
      */
-    UserDTO findByIdCard(String idCard);
+   // UserDTO findByIdCard(String idCard);
 
     /**
      * 根据账号名查找用户信息
@@ -30,7 +30,7 @@ public interface UserService {
      * 添加一条用户信息
      * @param user
      */
-    UserDTO saveUser(String accountName,UserDTO user);
+   // UserDTO saveUser(String accountName,UserDTO user);
 
     /**
      * 根据账号名更新一条用户信息
@@ -43,7 +43,7 @@ public interface UserService {
      * 根据账号名删除一条用户信息
      * @param accountName
      */
-    void deleteUserInfo(String accountName);
+    boolean deleteUserInfo(String accountName);
 
     Map<String,Object> getListByPagination(int page, int size);
 

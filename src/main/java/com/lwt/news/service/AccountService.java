@@ -39,4 +39,11 @@ public interface AccountService {
      */
     boolean exitAccount(String accountName);
 
+    /**
+     * 激活账号
+     * @param email
+     * @param code
+     * @return
+     */
+    boolean validata(String email, String code);
 }
