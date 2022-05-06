@@ -1,8 +1,0 @@
-一般游客访问
-url以/visitor/**开头
-一般账号登陆访问
-url以/account/**和/user/**开头
-管理员访问
-url以/admin/**和/visitors/**开头
-超级管理员访问
-url以/superadmin/**开头
