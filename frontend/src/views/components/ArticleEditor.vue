@@ -3,12 +3,12 @@
     <el-row style="margin-bottom: 10px">
       <el-col :span="18">
         <el-input
-        v-model="title"
-        type="text"
-        placeholder="新闻标题"
-        maxlength="100"
-        show-word-limit
-      />
+          v-model="title"
+          type="text"
+          placeholder="新闻标题"
+          maxlength="100"
+          show-word-limit
+        />
       </el-col>
       <el-col :offset="1" :span="4">
         <el-button type="primary" @click="handlePublish"><i class="el-icon-edit" />发布文章</el-button>

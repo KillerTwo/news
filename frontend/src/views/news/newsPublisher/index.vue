@@ -1,82 +1,84 @@
 <template>
-<div>
-<article-editor @publish="handlePublish" />
-  <el-dialog
-    title="发布文章"
-    :visible.sync="dialogVisible"
-    width="60%"
-    :before-close="handleClose">
+  <div>
+    <article-editor @publish="handlePublish" />
+    <el-dialog
+      title="发布文章"
+      :visible.sync="dialogVisible"
+      width="60%"
+      :before-close="handleClose"
+    >
 
-<el-form ref="form" :model="form" :rules="rules" label-width="80px">
-  <el-form-item label="封面">
-    <el-upload
-      action="#"
-      list-type="picture-card"
-      :auto-upload="false">
-    <i slot="default" class="el-icon-plus"></i>
-    <div slot="file" slot-scope="{file}">
-      <img
-        class="el-upload-list__item-thumbnail"
-        :src="file.url"
-      >
-      <span class="el-upload-list__item-actions">
-        <span
-          class="el-upload-list__item-preview"
-          @click="handlePictureCardPreview(file)"
-        >
-          <i class="el-icon-zoom-in"></i>
-        </span>
-        <span
-          v-if="!disabled"
-          class="el-upload-list__item-delete"
-          @click="handleDownload(file)"
-        >
-          <i class="el-icon-download"></i>
-        </span>
-        <span
-          v-if="!disabled"
-          class="el-upload-list__item-delete"
-          @click="handleRemove(file)"
-        >
-          <i class="el-icon-delete"></i>
-        </span>
+      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+        <el-form-item label="封面">
+          <el-upload
+            action="#"
+            list-type="picture-card"
+            :auto-upload="false"
+          >
+            <i slot="default" class="el-icon-plus" />
+            <div slot="file" slot-scope="{file}">
+              <img
+                class="el-upload-list__item-thumbnail"
+                :src="file.url"
+              >
+              <span class="el-upload-list__item-actions">
+                <span
+                  class="el-upload-list__item-preview"
+                  @click="handlePictureCardPreview(file)"
+                >
+                  <i class="el-icon-zoom-in" />
+                </span>
+                <span
+                  v-if="!disabled"
+                  class="el-upload-list__item-delete"
+                  @click="handleDownload(file)"
+                >
+                  <i class="el-icon-download" />
+                </span>
+                <span
+                  v-if="!disabled"
+                  class="el-upload-list__item-delete"
+                  @click="handleRemove(file)"
+                >
+                  <i class="el-icon-delete" />
+                </span>
+              </span>
+            </div>
+          </el-upload>
+          <el-dialog :visible.sync="imgDialogVisible">
+            <img width="100%" :src="dialogImageUrl" alt="">
+          </el-dialog>
+        </el-form-item>
+        <el-form-item label="摘要" prop="excerpt">
+          <el-input v-model="form.excerpt" type="textarea" maxlength="256" show-word-limit />
+        </el-form-item>
+        <el-form-item label="文章标签" prop="tags">
+          <el-select v-model="form.tags" filterable multiple placeholder="请选择">
+            <el-option
+              v-for="item in tagOptions"
+              :key="item.id"
+              :label="item.tagName"
+              :value="item.id"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="新闻分类" prop="category">
+          <el-select v-model="form.category" filterable placeholder="请选择">
+            <el-option
+              v-for="item in categoryOptions"
+              :key="item.id"
+              :label="item.categoryName"
+              :value="item.id"
+            />
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="handleSubmit">发布新闻</el-button>
       </span>
-    </div>
-</el-upload>
-<el-dialog :visible.sync="imgDialogVisible">
-  <img width="100%" :src="dialogImageUrl" alt="">
-</el-dialog>
-  </el-form-item>
-  <el-form-item label="摘要" prop="excerpt">
-    <el-input v-model="form.excerpt" type="textarea" maxlength="256" show-word-limit />
-  </el-form-item>
-  <el-form-item label="文章标签" prop="tags">
-    <el-select v-model="form.tags" filterable multiple placeholder="请选择">
-      <el-option
-        v-for="item in tagOptions"
-        :key="item.id"
-        :label="item.tagName"
-        :value="item.id">
-      </el-option>
-  </el-select>
-  </el-form-item>
-  <el-form-item label="新闻分类" prop="category">
-    <el-select v-model="form.category" filterable placeholder="请选择">
-      <el-option
-        v-for="item in categoryOptions"
-        :key="item.id"
-        :label="item.categoryName"
-        :value="item.id">
-      </el-option>
-  </el-select>
-  </el-form-item>
-</el-form>
-  <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="handleSubmit">发布新闻</el-button>
-  </span>
-</el-dialog>
-</div>
+    </el-dialog>
+  </div>
 </template>
 <script>
 import { publish } from '@/api/news/newsArticle'
