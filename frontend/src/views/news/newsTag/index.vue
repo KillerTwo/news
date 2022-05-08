@@ -5,20 +5,9 @@
       <!--如果想在工具栏加入更多按钮，可以使用插槽方式， slot = 'left' or 'right'-->
       <crudOperation :permission="permission" />
       <!--表单组件-->
-      <el-dialog :close-on-click-modal="false" :before-close="crud.cancelCU" :visible.sync="crud.status.cu > 0" :title="crud.status.title" width="500px">
+      <el-dialog :close-on-click-modal="false" :before-close="crud.cancelCU" :visible.sync="crud.status.cu > 0" :title="crud.status.title" width="800px">
         <el-form ref="form" :model="form" :rules="rules" size="small" label-width="80px">
-          <el-form-item label="创建人">
-            <el-input v-model="form.createBy" style="width: 370px;" />
-          </el-form-item>
-          <el-form-item label="创建时间">
-            <el-date-picker v-model="form.createTime" type="datetime" style="width: 370px;" />
-          </el-form-item>
-          <el-form-item label="更新人">
-            <el-input v-model="form.updateBy" style="width: 370px;" />
-          </el-form-item>
-          <el-form-item label="更新时间">
-            <el-date-picker v-model="form.updateTime" type="datetime" style="width: 370px;" />
-          </el-form-item>
+
           <el-form-item label="标签名称">
             <el-input v-model="form.tagName" style="width: 370px;" />
           </el-form-item>

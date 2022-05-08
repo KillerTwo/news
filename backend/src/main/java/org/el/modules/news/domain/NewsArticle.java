@@ -79,7 +79,7 @@ public class NewsArticle implements Serializable {
 
     @Column(name = "author")
     @ApiModelProperty(value = "作者")
-    private Integer author;
+    private Long author;
 
     @Column(name = "views")
     @ApiModelProperty(value = "阅读量")

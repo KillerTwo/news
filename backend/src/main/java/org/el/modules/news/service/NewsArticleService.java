@@ -62,6 +62,13 @@ public interface NewsArticleService {
     NewsArticleDto create(NewsArticle resources);
 
     /**
+     * 发布新闻
+     * @param resources
+     * @return NewsArticleDto
+     */
+    NewsArticleDto publish(NewsArticleDto resources);
+
+    /**
     * 编辑
     * @param resources /
     */

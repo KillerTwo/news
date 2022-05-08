@@ -1,5 +1,13 @@
 import request from '@/utils/request'
 
+export function listCategoryAll(params) {
+  return request({
+    url: 'api/newsCategory/listAll',
+    method: 'get',
+    params: params
+  })
+}
+
 export function add(data) {
   return request({
     url: 'api/newsCategory',

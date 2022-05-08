@@ -8,6 +8,14 @@ export function add(data) {
   })
 }
 
+export function publish(data) {
+  return request({
+    url: 'api/newsArticle/publish',
+    method: 'post',
+    data
+  })
+}
+
 export function del(ids) {
   return request({
     url: 'api/newsArticle/',
@@ -24,4 +32,8 @@ export function edit(data) {
   })
 }
 
-export default { add, edit, del }
+export default {
+  add,
+  edit,
+  del
+}

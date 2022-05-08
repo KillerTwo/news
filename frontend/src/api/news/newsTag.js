@@ -1,5 +1,13 @@
 import request from '@/utils/request'
 
+export function listTagAll(params) {
+  return request({
+    url: 'api/newsTag/listAll',
+    method: 'get',
+    params: params
+  })
+}
+
 export function add(data) {
   return request({
     url: 'api/newsTag',

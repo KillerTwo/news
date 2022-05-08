@@ -59,6 +59,13 @@ public class NewsTagController {
         return new ResponseEntity<>(newsTagService.queryAll(criteria,pageable),HttpStatus.OK);
     }
 
+    @GetMapping("/listAll")
+    @Log("查询新闻标签")
+    @ApiOperation("查询新闻标签")
+    public ResponseEntity<Object> queryNewsTagAll(NewsTagQueryCriteria criteria){
+        return new ResponseEntity<>(newsTagService.queryAll(criteria),HttpStatus.OK);
+    }
+
     @PostMapping
     @Log("新增新闻标签")
     @ApiOperation("新增新闻标签")

@@ -7,18 +7,6 @@
       <!--表单组件-->
       <el-dialog :close-on-click-modal="false" :before-close="crud.cancelCU" :visible.sync="crud.status.cu > 0" :title="crud.status.title" width="500px">
         <el-form ref="form" :model="form" :rules="rules" size="small" label-width="80px">
-          <el-form-item label="创建人">
-            <el-input v-model="form.createBy" style="width: 370px;" />
-          </el-form-item>
-          <el-form-item label="创建时间">
-            <el-date-picker v-model="form.createTime" type="datetime" style="width: 370px;" />
-          </el-form-item>
-          <el-form-item label="更新人">
-            <el-input v-model="form.updateBy" style="width: 370px;" />
-          </el-form-item>
-          <el-form-item label="更新时间">
-            <el-date-picker v-model="form.updateTime" type="datetime" style="width: 370px;" />
-          </el-form-item>
           <el-form-item label="标题">
             <el-input v-model="form.title" style="width: 370px;" />
           </el-form-item>
@@ -33,9 +21,6 @@
           </el-form-item>
           <el-form-item label="正文">
             <el-input v-model="form.content" :rows="3" type="textarea" style="width: 370px;" />
-          </el-form-item>
-          <el-form-item label="作者">
-            <el-input v-model="form.author" style="width: 370px;" />
           </el-form-item>
           <el-form-item label="阅读量">
             <el-input v-model="form.views" style="width: 370px;" />
@@ -54,10 +39,7 @@
         <el-table-column prop="updateBy" label="更新人" />
         <el-table-column prop="updateTime" label="更新时间" />
         <el-table-column prop="title" label="标题" />
-        <el-table-column prop="excerpt" label="摘要" />
         <el-table-column prop="category" label="新闻分类ID" />
-        <el-table-column prop="img" label="封面图片" />
-        <el-table-column prop="content" label="正文" />
         <el-table-column prop="author" label="作者" />
         <el-table-column prop="views" label="阅读量" />
         <el-table-column v-if="checkPer(['admin','newsArticle:edit','newsArticle:del'])" label="操作" width="150px" align="center">

@@ -2,15 +2,15 @@ package org.el.modules.mnt.service.mapstruct;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Generated;
+import javax.annotation.processing.Generated;
 import org.el.modules.mnt.domain.App;
 import org.el.modules.mnt.service.dto.AppDto;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-05-06T23:19:50+0800",
-    comments = "version: 1.3.1.Final, compiler: javac, environment: Java 17.0.1 (Oracle Corporation)"
+    date = "2022-05-08T14:28:37+0800",
+    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.1 (Oracle Corporation)"
 )
 @Component
 public class AppMapperImpl implements AppMapper {

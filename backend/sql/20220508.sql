@@ -65,3 +65,12 @@ create table news_comment
     constraint news_comment_pk
         primary key (id)
 ) comment '新闻评论';
+create table news_article_tag
+(
+    id         int auto_increment comment '主键',
+    article_id int null comment '新闻ID',
+    tag_id     int null comment '标签ID',
+    constraint news_article_tag_pk
+        primary key (id)
+) comment '新闻标签关联表';
+

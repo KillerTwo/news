@@ -18,6 +18,7 @@ package org.el.modules.news.service.dto;
 import lombok.Data;
 import java.sql.Timestamp;
 import java.io.Serializable;
+import java.util.List;
 
 /**
 * @website https://el-admin.vip
@@ -59,8 +60,11 @@ public class NewsArticleDto implements Serializable {
     private String content;
 
     /** 作者 */
-    private Integer author;
+    private Long author;
 
     /** 阅读量 */
     private Integer views;
+
+    /** 标签列表 */
+    private List<Integer> tags;
 }

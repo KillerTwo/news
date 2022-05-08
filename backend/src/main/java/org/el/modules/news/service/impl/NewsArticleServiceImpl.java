@@ -17,25 +17,24 @@ package org.el.modules.news.service.impl;
 
 import org.el.modules.news.domain.NewsArticle;
 import lombok.RequiredArgsConstructor;
+import org.el.modules.news.domain.NewsArticleTag;
 import org.el.modules.news.repository.NewsArticleRepository;
+import org.el.modules.news.repository.NewsArticleTagRepository;
 import org.el.modules.news.service.NewsArticleService;
 import org.el.modules.news.service.dto.NewsArticleDto;
 import org.el.modules.news.service.dto.NewsArticleQueryCriteria;
 import org.el.modules.news.service.mapstruct.NewsArticleMapper;
-import org.el.utils.FileUtil;
-import org.el.utils.PageUtil;
-import org.el.utils.QueryHelp;
-import org.el.utils.ValidationUtil;
+import org.el.modules.news.service.mapstruct.NewsArticleTagMapper;
+import org.el.utils.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import java.util.List;
-import java.util.Map;
+
+import java.sql.Timestamp;
+import java.util.*;
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 
 /**
 * @website https://el-admin.vip
@@ -49,6 +48,8 @@ public class NewsArticleServiceImpl implements NewsArticleService {
 
     private final NewsArticleRepository newsArticleRepository;
     private final NewsArticleMapper newsArticleMapper;
+
+    private final NewsArticleTagRepository newsArticleTagRepository;
 
     @Override
     public Map<String,Object> queryAll(NewsArticleQueryCriteria criteria, Pageable pageable){
@@ -73,6 +74,27 @@ public class NewsArticleServiceImpl implements NewsArticleService {
     @Transactional(rollbackFor = Exception.class)
     public NewsArticleDto create(NewsArticle resources) {
         return newsArticleMapper.toDto(newsArticleRepository.save(resources));
+    }
+
+    @Transactional
+    @Override
+    public NewsArticleDto publish(NewsArticleDto resources) {
+        NewsArticle newsArticle = newsArticleMapper.toEntity(resources);
+        newsArticle.setAuthor(SecurityUtils.getCurrentUserId());
+        newsArticle.setCreateBy(SecurityUtils.getCurrentUsername());
+        newsArticle.setCreateTime(new Timestamp(new Date().getTime()));
+        newsArticle.setUpdateBy(SecurityUtils.getCurrentUsername());
+        newsArticle.setUpdateTime(new Timestamp(new Date().getTime()));
+        NewsArticle saved = newsArticleRepository.save(newsArticle);
+        List<Integer> tagIds = resources.getTags();
+        List<NewsArticleTag> newsArticleTags = tagIds.stream().map(ele -> {
+            NewsArticleTag newsArticleTag = new NewsArticleTag();
+            newsArticleTag.setTagId(ele);
+            newsArticleTag.setArticleId(saved.getId());
+            return newsArticleTag;
+        }).toList();
+        newsArticleTagRepository.saveAll(newsArticleTags);
+        return newsArticleMapper.toDto(saved);
     }
 
     @Override

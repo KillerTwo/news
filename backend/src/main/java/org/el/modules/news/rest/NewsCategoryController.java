@@ -59,6 +59,14 @@ public class NewsCategoryController {
         return new ResponseEntity<>(newsCategoryService.queryAll(criteria,pageable),HttpStatus.OK);
     }
 
+    @GetMapping("/listAll")
+    @Log("查询新闻分类")
+    @ApiOperation("查询新闻分类")
+    @PreAuthorize("@el.check('newsCategory:list')")
+    public ResponseEntity<Object> queryNewsCategoryAll(NewsCategoryQueryCriteria criteria){
+        return new ResponseEntity<>(newsCategoryService.queryAll(criteria),HttpStatus.OK);
+    }
+
     @PostMapping
     @Log("新增新闻分类")
     @ApiOperation("新增新闻分类")

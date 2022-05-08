@@ -18,6 +18,7 @@ package org.el.modules.news.rest;
 import org.el.annotation.Log;
 import org.el.modules.news.domain.NewsArticle;
 import org.el.modules.news.service.NewsArticleService;
+import org.el.modules.news.service.dto.NewsArticleDto;
 import org.el.modules.news.service.dto.NewsArticleQueryCriteria;
 import org.springframework.data.domain.Pageable;
 import lombok.RequiredArgsConstructor;
@@ -65,6 +66,13 @@ public class NewsArticleController {
     @PreAuthorize("@el.check('newsArticle:add')")
     public ResponseEntity<Object> createNewsArticle(@Validated @RequestBody NewsArticle resources){
         return new ResponseEntity<>(newsArticleService.create(resources),HttpStatus.CREATED);
+    }
+
+    @PostMapping("/publish")
+    @Log("发布新闻")
+    @ApiOperation("发布新闻")
+    public ResponseEntity<Object> createNewsArticle(@Validated @RequestBody NewsArticleDto resources){
+        return new ResponseEntity<>(newsArticleService.publish(resources),HttpStatus.CREATED);
     }
 
     @PutMapping
