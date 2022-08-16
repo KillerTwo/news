@@ -2,12 +2,13 @@
 <div>
 <a-row type="flex" :style="{marginTop: '20px'}">
     <a-col :flex="4">
-        <a-card hoverable style="width: 400px">
+        <a-card hoverable style="width: 400px" @click="handleItemClick">
             <template #cover>
                 <img
                     alt="example"
                     src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
                 />
+                
             </template>
                 <template #actions>
                     <span>澎湃中国</span>
@@ -130,7 +131,7 @@
 </template>
 <script setup lang="ts">
 import { ref, watch } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 import { StarOutlined, LikeOutlined, MessageOutlined, EditOutlined, EllipsisOutlined } from '@ant-design/icons-vue';
 import { IconType } from '@ant-design/icons-vue/lib/components/Icon';
@@ -146,6 +147,8 @@ interface NewsArticle {
 
 const route = useRoute()
 const data = ref<Array<NewsArticle>>([])
+
+const router = useRouter()
 
 
 
@@ -254,5 +257,9 @@ watch(
         }
     }
 )
+
+function handleItemClick() {
+    router.push('/details/2')
+}
 
 </script>

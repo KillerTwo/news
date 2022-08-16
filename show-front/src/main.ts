@@ -10,9 +10,12 @@ import router from './router'
 import UndrawUi from 'undraw-ui'
 import 'undraw-ui/dist/style.css'
 
+import CKEditor from '@ckeditor/ckeditor5-vue'
+
 // const app = createApp(App)
 const app = createApp(App)
 app.use(router)
 app.use(UndrawUi)
 app.use(Antd)
+app.use(CKEditor)
 app.mount('#app')

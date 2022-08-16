@@ -3,10 +3,10 @@
         <a-layout-header :style="{ position: 'fixed', zIndex: 1, width: '100%' }">
             <!-- <router-link to="/">Go to Home</router-link>
             <router-link to="/about">Go to About</router-link> -->
-            <h3 :style="{ float: 'left' }"><a>澎湃新闻</a></h3>
+            <h3 :style="{ float: 'left' }"><router-link to="/">澎湃新闻</router-link></h3>
             <NewsCategoryVue :style="{ marginLeft: '400px' }" />
         </a-layout-header>
-        <a-layout-content :style="{ padding: '0 50px', marginTop: '64px' }">
+        <a-layout-content :style="{ minHeight: '800px', padding: '0 50px', marginTop: '64px' }">
             <div :style="{ margin: '0 205px', minHeight: '380px' }">
                 <router-view></router-view>
             </div>
